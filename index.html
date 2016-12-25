@@ -1,9 +1,89 @@
+<!DOCTYPE=html>
 <html>
     <head>
-        <title>test</title>
+        <title>empyreuma</title>
         <meta charset=utf-8>
+        <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500" rel="stylesheet">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <style type=text/css>
+            body {
+                color: #666666;
+                margin: 64px;
+                font-size: 24;
+                font-family: "Roboto", sans-serif;
+                font-weight: 300;
+            }
+            a {
+                color: inherit;
+                text-decoration: none;
+                font-weight: 400;
+            }
+            #header {
+                font-size: 48;
+                font-weight: 400;
+            }
+            .header-emph {
+                color: #cb638e;
+            }
+            p {
+                display: none;
+            }
+        </style>
     </head>
     <body>
-        test
+        <a id=header><span class=header-emph>em</span>pyreuma</a>
+
+        <br><br>
+
+        <a href=# onclick=button("about")>about</a>
+        | <a href=# class="fa fa-twitter" onclick=button("twitter")></a>
+        | <a href=# class="fa fa-twitch" onclick=button("twitch")></a>
+        | <a href=# class="fa fa-envelope" onclick=button("email")></a>
+
+        <br>
+
+        <p id=about>test</p>
+        <p id=twitter>test</p>
+        <p id=twitch>test</p>
+        <p id=email>test</p>
+
+        <script>
+var header = document.getElementById("header");
+
+function header_emph(str) {
+    return "<span class=header-emph>" + str + "</span>";
+}
+
+function button(arg) {
+    var paragraphs = document.getElementsByTagName("p");
+    for (var i = 0; i < paragraphs.length; i++) {
+        var paragraph = paragraphs[i];
+        if (paragraph.id == arg)
+            paragraph.setAttribute("style", "display: inherit;");
+        else
+            paragraph.removeAttribute("style");
+    }
+
+    switch(arg) {
+        case "about":
+            header.innerHTML = header_emph("emily");
+            header.removeAttribute("href");
+            break;
+        case "twitter":
+            header.innerHTML = "twitter.com/" + header_emph("ecilicica");
+            header.setAttribute("href", "https://twitter.com/ecilciica");
+            break;
+        case "twitch":
+            header.innerHTML = "twitch.tv/" + header_emph("ecilicica");
+            header.setAttribute("href", "https://twitch.tv/ecilciica");
+            break;
+        case "email":
+            var dom = "@" + atob("gCnJ3bug3bixWah1mblB3b".split("").reverse().join(""));
+            header.innerHTML = header_emph("ecilicica") + dom;
+            header.setAttribute("href", "mailto:ecilicica" + dom);
+            break;
+    }
+}
+        </script>
     </body>
 </html>

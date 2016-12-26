@@ -28,6 +28,7 @@
             }
             #main {
                 color: #bbbbbb;
+                display: none;
             }
             .header-emph {
                 color: #cb638e;
@@ -126,6 +127,7 @@
                 }
 
                 undo.removeAttribute("style");
+                document.getElementById("main").removeAttribute("style");
                 switch(arg) {
                     case "about":
                         header.innerHTML = header_emph("emily");
@@ -151,6 +153,7 @@
                     case "main":
                         header.innerHTML = header_emph("em") + "pyreuma";
                         undo.setAttribute("style", "display: none;");
+                        document.getElementById("main").setAttribute("style", "display: inherit;");
                         shuffle_kaomoji();
                         break;
                 }

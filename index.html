@@ -8,7 +8,7 @@
         <style type=text/css>
             body {
                 color: #666666;
-                margin: 64px;
+                margin: 64px 128px 64px 128px;
                 font-size: 24;
                 font-family: "Roboto", sans-serif;
                 font-weight: 300;
@@ -18,15 +18,23 @@
                 text-decoration: none;
                 font-weight: 400;
             }
+            p {
+                display: none;
+            }
             #header {
                 font-size: 48;
                 font-weight: 400;
             }
+            #main {
+                color: #bbbbbb;
+            }
             .header-emph {
                 color: #cb638e;
             }
-            p {
-                display: none;
+            .footer {
+                position: fixed;
+                bottom: 64px;
+                right: 128px;
             }
         </style>
     </head>
@@ -38,52 +46,117 @@
         <a href=# onclick=button("about")>about</a>
         | <a href=# class="fa fa-twitter" onclick=button("twitter")></a>
         | <a href=# class="fa fa-twitch" onclick=button("twitch")></a>
+        | <a href=# class="fa fa-github" onclick=button("github")></a>
         | <a href=# class="fa fa-envelope" onclick=button("email")></a>
 
         <br>
 
-        <p id=about>test</p>
-        <p id=twitter>test</p>
-        <p id=twitch>test</p>
-        <p id=email>test</p>
+        <p id=about>
+            i am a hobbyist programmer and system administrator currently attending college to pursue a degree in a field not particularly related to either of those things. i'm very interested in cryptography, network security, unix-like operating systems, and open source software. i'm very paranoid about computers.
+            <br>
+            <br>in my free time i like to go on long walks, listen to obscure music - not because it's obscure, but because it's refreshing - browse through feeds, look at art <a href=https://www.wikiart.org/>on</a> or <a href=http://www.mfa.org/>offline</a>, and watch <a href=https://www.youtube.com/user/penguinz0>funny</a> or <a href=https://www.youtube.com/user/Qcknd>interesting</a> people <a href=https://www.youtube.com/user/caseyneistat>do things</a> on youtube. i've lately also been trying to get back into books; i used to read a ton, but middle school and high school required reading sort of diminished my interest.
+        </p>
+
+        <p id=twitter>
+            twitter is where you can most easily contact me. i'm usually lurking or posting on there if i'm not busy.
+            <br>
+            <br>my account is set to private but i have my direct messages open to everyone - feel free to send me one!
+        </p>
+
+        <p id=twitch>
+            i'll occasionally stream things if i have large blocks of free time. sometimes i'll stream my screen while i do stuff, but usually i just stream music.
+            <br>
+            <br>i recently got around to setting up a new script that allows for headless streaming by using a gif as the video stream and displays the currently playing song, which you can find <a href=https://gist.github.com/empyreuma/01eaf38d2e2412a550abc40185ac3b1e>on gist</a>. the script requires ffmpeg to work. it only works with mpd, but the caption updating functionality is only one line so you should be able to edit it easily.
+        </p>
+
+        <p id=github>
+            i was originally going to post a lot of my code on here, but i ended up putting almost none of it on github for personal or professional reasons.
+            <br>
+            <br>sorry!
+        </p>
+
+        <p id=email>
+            i rarely check my email. only use this if you want to send me large files without using an external service or if you like the aesthetic and concept of email. if the latter applies to you: same here.
+        </p>
+
+        <a href=# id=main class=footer onclick=shuffle_kaomoji()></a>
+
+        <br><div style="text-align: right;">
+            <a href=# id=undo class="fa fa-undo" onclick=button("main") style="display: none;"></a>
+        </div>
 
         <script>
-var header = document.getElementById("header");
+            var header = document.getElementById("header");
+            var undo = document.getElementById("undo");
+            var paragraphs = document.getElementsByTagName("p");
 
-function header_emph(str) {
-    return "<span class=header-emph>" + str + "</span>";
-}
+            var fa_external = ' <span class="fa fa-external-link" style="color: #bbbbbb; font-size: 24;"></span>'
+            var last_kaomoji = 420;
+            var kaomoji = [
+                "＼(＾▽＾)／",
+                "( ◡‿◡ ♡)",
+                "(￣ヘ￣)",
+                "(╥﹏╥)",
+                "(^-^*)/",
+                "(＿ ＿*) Z z z"
+            ];
 
-function button(arg) {
-    var paragraphs = document.getElementsByTagName("p");
-    for (var i = 0; i < paragraphs.length; i++) {
-        var paragraph = paragraphs[i];
-        if (paragraph.id == arg)
-            paragraph.setAttribute("style", "display: inherit;");
-        else
-            paragraph.removeAttribute("style");
-    }
+            function header_emph(str) {
+                return "<span class=header-emph>" + str + "</span>";
+            }
 
-    switch(arg) {
-        case "about":
-            header.innerHTML = header_emph("emily");
-            header.removeAttribute("href");
-            break;
-        case "twitter":
-            header.innerHTML = "twitter.com/" + header_emph("ecilicica");
-            header.setAttribute("href", "https://twitter.com/ecilciica");
-            break;
-        case "twitch":
-            header.innerHTML = "twitch.tv/" + header_emph("ecilicica");
-            header.setAttribute("href", "https://twitch.tv/ecilciica");
-            break;
-        case "email":
-            var dom = "@" + atob("gCnJ3bug3bixWah1mblB3b".split("").reverse().join(""));
-            header.innerHTML = header_emph("ecilicica") + dom;
-            header.setAttribute("href", "mailto:ecilicica" + dom);
-            break;
-    }
-}
+            function shuffle_kaomoji() {
+                // force a new kaomoji to appear every invocation
+                var current_kaomoji = last_kaomoji;
+                while (current_kaomoji == last_kaomoji)
+                    current_kaomoji = Math.floor(Math.random() * kaomoji.length);
+                last_kaomoji = current_kaomoji;
+
+                document.getElementById("main").innerHTML = kaomoji[current_kaomoji];
+            }
+
+            function button(arg) {
+                for (var i = 0; i < paragraphs.length; i++) {
+                    var paragraph = paragraphs[i];
+                    if (paragraph.id == arg)
+                        paragraph.setAttribute("style", "display: inherit;");
+                    else
+                        paragraph.removeAttribute("style");
+                }
+
+                undo.removeAttribute("style");
+                switch(arg) {
+                    case "about":
+                        header.innerHTML = header_emph("emily");
+                        header.removeAttribute("href");
+                        break;
+                    case "twitter":
+                        header.innerHTML = "twitter.com/" + header_emph("ecilicica") + fa_external;
+                        header.setAttribute("href", "https://twitter.com/ecilciica");
+                        break;
+                    case "twitch":
+                        header.innerHTML = "twitch.tv/" + header_emph("ecilicica") + fa_external;
+                        header.setAttribute("href", "https://twitch.tv/ecilciica");
+                        break;
+                    case "github":
+                        header.innerHTML = "github.com/" + header_emph("empyreuma") + fa_external;
+                        header.setAttribute("href", "https://github.com/empyreuma");
+                        break;
+                    case "email":
+                        var dom = "@" + atob("gCnJ3bug3bixWah1mblB3b".split("").reverse().join("")) + fa_external;
+                        header.innerHTML = header_emph("ecilicica") + dom;
+                        header.setAttribute("href", "mailto:ecilicica" + dom);
+                        break;
+                    case "main":
+                        header.innerHTML = header_emph("em") + "pyreuma";
+                        undo.setAttribute("style", "display: none;");
+                        shuffle_kaomoji();
+                        break;
+                }
+
+            }
+
+            button("main");
         </script>
     </body>
 </html>

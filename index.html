@@ -9,7 +9,7 @@
         <style type=text/css>
             body {
                 color: #666666;
-                margin: 64px 128px 64px 128px;
+                margin: 64px 128px;
                 font-size: 24;
                 font-family: "Roboto", sans-serif;
                 font-weight: 300;
@@ -20,23 +20,20 @@
                 font-weight: 400;
             }
             p {
+                padding: 16px 32px;
                 display: none;
             }
             #header {
                 font-size: 48;
                 font-weight: 400;
             }
-            #main {
+            #footer {
                 color: #bbbbbb;
-                display: none;
+                position: fixed;
+                bottom: 64px; right: 128px;
             }
             .header-emph {
                 color: #cb638e;
-            }
-            .footer {
-                position: fixed;
-                bottom: 64px;
-                right: 128px;
             }
         </style>
     </head>
@@ -81,9 +78,14 @@
             i rarely check my email. only use this if you want to send me large files without using an external service or if you like the aesthetic and concept of email. if the latter applies to you: same here.
         </p>
 
-        <a href=# id=main class=footer onclick=shuffle_kaomoji()></a>
+        <p id=main>
+            <a href=https://en.wiktionary.org/wiki/empyreuma>/ˌɛmpɪˈruːmə/</a>
+            <br>
+            <br>(n.) the peculiar smell and taste arising from products of decomposition of animal or vegetable substances when burnt in close vessels.
+            <a href=# id=footer style="display: inherit;" onclick=shuffle_kaomoji()></a>
+        </p>
 
-        <br><div style="text-align: right;">
+        <div style="color: #bbbbbb; text-align: right; margin: 0px 32px;">
             <a href=# id=undo class="fa fa-undo" onclick=button("main") style="display: none;"></a>
         </div>
 
@@ -92,8 +94,8 @@
             var undo = document.getElementById("undo");
             var paragraphs = document.getElementsByTagName("p");
 
-            var fa_external = ' <span class="fa fa-external-link" style="color: #bbbbbb; font-size: 24;"></span>'
-            var last_kaomoji = 420;
+            //var fa_external = ' <span class="fa fa-external-link" style="color: #bbbbbb; font-size: 24;"></span>'
+            var fa_external = ""
             var kaomoji = [
                 "＼(＾▽＾)／",
                 "( ◡‿◡ ♡)",
@@ -102,6 +104,7 @@
                 "(^-^*)/",
                 "(＿ ＿*) Z z z"
             ];
+            var last_kaomoji = 420;
 
             function header_emph(str) {
                 return "<span class=header-emph>" + str + "</span>";
@@ -114,7 +117,7 @@
                     current_kaomoji = Math.floor(Math.random() * kaomoji.length);
                 last_kaomoji = current_kaomoji;
 
-                document.getElementById("main").innerHTML = kaomoji[current_kaomoji];
+                document.getElementById("footer").innerHTML = kaomoji[current_kaomoji];
             }
 
             function button(arg) {
@@ -127,7 +130,6 @@
                 }
 
                 undo.removeAttribute("style");
-                document.getElementById("main").removeAttribute("style");
                 switch(arg) {
                     case "about":
                         header.innerHTML = header_emph("emily");
@@ -153,7 +155,6 @@
                     case "main":
                         header.innerHTML = header_emph("em") + "pyreuma";
                         undo.setAttribute("style", "display: none;");
-                        document.getElementById("main").setAttribute("style", "display: inherit;");
                         shuffle_kaomoji();
                         break;
                 }

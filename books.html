@@ -1,0 +1,192 @@
+<!DOCTYPE=html>
+<html>
+    <head>
+        <title>empyreuma</title>
+        <meta charset=utf-8>
+        <link rel=stylesheet href=https://fonts.googleapis.com/css?family=Roboto:100,300,400,500>
+        <link rel=stylesheet href=font-awesome-4.7.0/css/font-awesome.min.css type=text/css>
+        <link rel=stylesheet href=style.css type=text/css>
+        <style type=text/css>
+        </style>
+    </head>
+    <body>
+        <span id=header class=color>books, comics, and manga</span>
+
+        <br><br>
+
+        the ratings of art books reflect the accompanying text;
+        <br>those of translations reflect the original author.
+
+        <table id=books>
+        </table>
+        <script>
+var books = [
+    {
+        "title": "Dark Spring",
+        "author": "Unica Zürn",
+        "rating": 4,
+        "image": "books/darkspring.jpg"
+    },
+    {
+        "title": "Uzumaki",
+        "author": "Junji Ito",
+        "rating": 3.5,
+        "image": "books/uzumaki.jpg"
+    },
+    {
+        "title": "Fresh Impressions: Early Modern Japanese Prints",
+        "author": "Putney, Brown, Shūko, and Binnie",
+        "rating": 3,
+        "image": "books/ukiyoe.jpg"
+    },
+    {
+        "title": "Imaging Her Erotics",
+        "author": "Carolee Schneemann",
+        "rating": 3.5,
+        "image": "books/schneemann.jpg"
+    },
+    {
+        "title": "If Not, Winter: Fragments of Sappho",
+        "author": "Sappho",
+        "rating": 4,
+        "image": "books/ifnot.jpg"
+    },
+    {
+        "title": "Sappho: Poems and Fragments",
+        "author": "Sappho",
+        "rating": 4,
+        "image": "books/sappho.jpg"
+    },
+    {
+        "title": "Wandering Island Vol. 1",
+        "author": "Kenji Tsuruta",
+        "rating": 4,
+        "image": "books/wanderingisland.jpg"
+    },
+    {
+        "title": "Christina's World",
+        "author": "Betsy Wyeth",
+        "rating": 3,
+        "image": "books/christinasworld.jpg"
+    },
+    {
+        "title": "A Girl on the Shore",
+        "author": "Inio Asano",
+        "rating": 4.5,
+        "image": "books/agirlontheshore.jpg"
+    },
+    {
+        "title": "Nijigahara Holograph",
+        "author": "Inio Asano",
+        "rating": 4,
+        "image": "books/nijigahara.jpg"
+    },
+    {
+        "title": "Killing and Dying",
+        "author": "Adrian Tomine",
+        "rating": 4.5,
+        "image": "books/killinganddying.jpg"
+    },
+    {
+        "title": "Shortcomings",
+        "author": "Adrian Tomine",
+        "rating": 3,
+        "image": "books/shortcomings.jpg"
+    },
+    {
+        "title": "New York Sketches",
+        "author": "Adrian Tomine",
+        "rating": 4,
+        "image": "books/nysketches.jpg"
+    },
+    {
+        "title": "Hans Bellmer",
+        "author": "Beaumelle, Sayag, and Schmied",
+        "rating": 4,
+        "image": "books/bellmer.jpg"
+    },
+    {
+        "title": "Seconds",
+        "author": "Bryan Lee O'Malley",
+        "rating": 3.5,
+        "image": "books/seconds.jpg"
+    },
+    {
+        "title": "Gyo",
+        "author": "Junji Ito",
+        "rating": 3.5,
+        "image": "books/gyo.jpg"
+    },
+    {
+        "title": "Brave New World",
+        "author": "Aldous Huxley",
+        "rating": 4,
+        "image": "books/bravenew.jpg"
+    },
+    {
+        "title": "Wuthering Heights",
+        "author": "Emily Brontë",
+        "rating": 4,
+        "image": "books/wuthering.jpg"
+    },
+    {
+        "title": "Oyasumi Punpun (All)",
+        "author": "Inio Asano",
+        "rating": 5,
+        "image": "books/punpun.jpg"
+    },
+    {
+        "title": "The Awakening",
+        "author": "Kate Chopin",
+        "rating": 4,
+        "image": "books/awakening.jpg"
+    },
+    {
+        "title": "1984",
+        "author": "George Orwell",
+        "rating": 4,
+        "image": "books/1984.jpg"
+    },
+];
+
+var columns = 3;
+for (var rowNum = 0; rowNum < Math.floor(books.length / columns) + 1; rowNum++) {
+    var row = document.createElement("tr");
+
+    for (var i = 0; i < columns; i++) {
+        var index = i + (rowNum * columns);
+        console.log(rowNum, i, index);
+        if (index < books.length) {
+            var book = books[index];
+            var cell = document.createElement("td");
+
+            var image = document.createElement("img");
+            image.setAttribute("class", "book-image");
+            image.setAttribute("src", book.image);
+            image.setAttribute("alt", book.title);
+            cell.appendChild(image);
+
+            cell.innerHTML += "<br><span class=book-title>" + book.title + "</span><br>by " + book.author + "<br>";
+            for (var r = 0; r < 5; r++) {
+            var ratingText = "";
+                var star = document.createElement("span");
+                var starsLeft = book.rating - r;
+                if (starsLeft >= 1)
+                    star.setAttribute("class", "fa fa-star");
+                else if (starsLeft > 0 && starsLeft < 1)
+                    star.setAttribute("class", "fa fa-star-half-o");
+                else
+                    star.setAttribute("class", "fa fa-star-o");
+                cell.appendChild(star);
+            }
+
+            row.appendChild(cell);
+        }
+    }
+
+    document.getElementById("books").appendChild(row);
+}
+
+        </script>
+    </body>
+</html>

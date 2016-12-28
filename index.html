@@ -68,7 +68,7 @@
 
         <script>
             var header = document.getElementById("header");
-            var undo = document.getElementById("undo");
+            //var undo = document.getElementById("undo");
             var paragraphs = document.getElementsByTagName("p");
             var navButtons = document.getElementsByClassName("nav");
 
@@ -140,7 +140,8 @@
                         break;
                     case "main":
                         header.innerHTML = headerEmph("em") + "pyreuma";
-                        undo.setAttribute("style", "display: none;");
+                        header.setAttribute("href", "/");
+                        //undo.setAttribute("style", "display: none;");
                         shuffleKaomoji();
                         break;
                 }
